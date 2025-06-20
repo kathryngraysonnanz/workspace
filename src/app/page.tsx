@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-
+import { GridLayout } from "@progress/kendo-react-layout"; // Import GridLayout
 import { Card } from "@progress/kendo-react-layout";
-import { Button } from "@progress/kendo-react-buttons";
+import Header from "./header";
 import TimeTracker from "./timeTracker";
 import TodoList from "./toDo";
+import NoteTakingArea from "./notes";
 
 import styles from "./page.module.css";
-
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -15,28 +15,27 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <h2>KendoReact ❤️ Next.js</h2>
+      <Header />
+      <GridLayout
+        cols={[{ width: '1fr' }, { width: '2fr' }, { width: '1fr' }]} // Define a 3-column layout
+        style={{ padding: "20px", gap: "20px" }} // Set padding and gaps
+      >
         <div>
-          <Button themeColor="primary" fillMode="flat" className="k-mr-1">
-            Home
-          </Button>
-          <Button
-            themeColor="primary"
-            fillMode="flat"
-            onClick={() => router.push("/grid")}
-          >
-            Grid
-          </Button>
+          <Card style={{ padding: "20px" }}>
+            <TimeTracker />
+          </Card>
         </div>
-      </header>
-      <Card style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-        <TimeTracker />
-      </Card>
-      <Card style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-        <TodoList />
-      </Card>
-      <div className={styles.container}></div>
+        <div>
+          <Card style={{ padding: "20px" }}>
+            <TodoList />
+          </Card>
+        </div>
+        <div>
+          <Card style={{ padding: "20px" }}>
+            <NoteTakingArea />
+          </Card>
+        </div>
+      </GridLayout>
       <footer className={styles.footer}>
         <p>Copyright © 2023 Progress Software. All rights reserved.</p>
       </footer>
